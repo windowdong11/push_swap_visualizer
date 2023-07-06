@@ -237,7 +237,18 @@
 	const commands_elem = document.getElementById('commands-output');
 	const interval_elem = document.getElementById('input-exec-interval');
 
-	
+	window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", e => {
+		if (!e.matches)
+			return;
+		dark_mode = !dark_mode;
+		recalculateAll();
+	});
+	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
+		if (!e.matches)
+			return;
+		dark_mode = !dark_mode;
+		recalculateAll();
+	});
 	function removeHighlightCommand() {
 		commands_elem.classList.remove('-active');
 	}
@@ -269,9 +280,9 @@
 	function pickColor(number)
 	{
 		const colors = dark_mode ? [
-parseRGB("BBD2C5"),
-parseRGB("536976"),
-parseRGB("292E49"),
+			parseRGB("BBD2C5"),
+			parseRGB("536976"),
+			parseRGB("292E49"),
 		] : [
 			parseRGB("A5FECB"),
 			parseRGB("20BDFF"),
