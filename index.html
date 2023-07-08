@@ -344,17 +344,7 @@
 	const interval_elem = document.getElementById('input-exec-interval');
 
 
-	function initDarkMode() {
-		const localDarkmode = localStorage.getItem('pushswap_darkmode');
-		if (!localDarkmode) {
-			const systemDarkmode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-			setDarkMode(systemDarkmode === true ? 'dark' : 'light');
-		}
-		else {
-			setDarkMode(localDarkmode);
-		}
-	}
-	initDarkMode();
+
 	/**
 	 * localStorage에 다크모드를 저장합니다.
 	 * 
@@ -381,7 +371,6 @@
 	}
 
 	function toggleDarkMode() {
-		console.log(localStorage.getItem('pushswap_darkmode'), getDarkMode())
 		if (getDarkMode() === 'dark')
 			setDarkMode('light');
 		else
@@ -389,7 +378,6 @@
 	}
 
 	document.getElementById('btn-darkmode').addEventListener('click', (e) => {
-		console.log('click')
 		toggleDarkMode();
 		recalculateAll();
 	});
@@ -441,8 +429,21 @@
 			return;
 		elem.style.backgroundColor = `#${pickColor(number)}`
 	}
+
+	function setExecInterval(millisecond) {
+		if (millisecond <= 0 || 1000 < millisecond)
+			return;
+		localStorage.setItem('pushswap_exec_interval', `${millisecond}`);
+		document.getElementById('output-exec-interval').value = `${millisecond}ms`
+		interval_elem.value = millisecond;
+	}
+
+	function getExecInterval() {
+		const localExecInterval = parseInt(localStorage.getItem('pushswap_exec_interval'));
+		return localExecInterval;
+	}
 	interval_elem.addEventListener('input', e => {
-		document.getElementById('output-exec-interval').value = `${e.target.value}ms`
+		setExecInterval(parseInt(e.target.value));
 	})
 
 	function setStackWidth() {
@@ -895,6 +896,29 @@
 		removeHighlightCommand();
 		next_command_idx = 0;
 	});
+
+	/* ----------- 초기화 로직 ----------*/
+	function initDarkMode() {
+		const localDarkmode = localStorage.getItem('pushswap_darkmode');
+		if (!localDarkmode) {
+			const systemDarkmode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+			setDarkMode(systemDarkmode === true ? 'dark' : 'light');
+		}
+		else {
+			setDarkMode(localDarkmode);
+		}
+	}
+	function initExecInterval() {
+		const localExecInterval = getExecInterval();
+		if (!Number.isInteger(localExecInterval)) {
+			setExecInterval(100);
+		}
+		else {
+			setExecInterval(localExecInterval);
+		}
+	}
+	initDarkMode();
+	initExecInterval();
 </script>
 
 </html>
