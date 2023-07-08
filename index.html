@@ -5,9 +5,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Push swap visualizer</title>
 	<style>
+		html {
+			--color-white: white;
+			--color-dark: rgb(39, 39, 39);
+			--information-background: yellow;
+			--textarea-background: var(--color-white);
+			--textarea-active-background: linear-gradient(to bottom, #fff 0px, #A5FECB 0px, #A5FECB 22px, #fff 22px);
+		}
+		html[data-theme='dark'] {
+			--color-white: rgb(39, 39, 39);
+			--color-dark:	white;
+			--btn-color: rgb(39, 39, 39);
+			--information-background: rgb(140, 152, 189);
+			--textarea-background: #777777;
+			--textarea-active-background: linear-gradient(to bottom, #777777 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #777777 22px);
+		}
 		* {
 			font-family: 'Courier New', Courier, monospace;
+			color: var(--color-dark);
 		}
+		/* dark-mode dev ---------------!!!!!!!!!! */
+		button, input, textarea, .material-symbols-outlined {
+			color: var(--btn-color);
+		}
+		body {
+			background-color: var(--color-white);
+		}
+		.fade-in-active {
+			background: var(--information-background);
+		}
+		.stack {
+			border-color: var(--color-dark);
+		}
+		.divider {
+			border-color: var(--color-dark);
+		}
+		/* dark-mode dev ends ----------!!!!!!!!!!! */
 		input {
 			font-size: large;
 			margin: 10px 0;
@@ -15,28 +48,21 @@
 		.wrapper {
 			display: flex;
 		}
-		.btn-wrap {
-			margin: 5px 0;
-		}
-		.btn-wrap:first {
-			margin-top: 0;
-		}
 		.stack {
-			border: 1px solid black;
+			border: 1px solid var(--color-dark);
 			min-width: 100px;
 			margin: 0 5px;
 			padding: 3px;
 		}
 		.elem {
-			color: white;
+			color: var(--color-white);
 			font-family: unset;
-			background-color: rgb(153, 121, 209);
 			font-weight: bold;
 			text-align: center;
 			margin: 1px 0;
 		}
 		.divider {
-			border: 2px solid black;
+			border: 2px solid var(--color-dark);
 		}
 		.divider.vertical {
 			margin: 0 10px;
@@ -46,7 +72,7 @@
 		}
 		.information {
 			position: fixed;
-			background-color: bisque;
+			background-color: var(--information-background);
 			border-radius: 5px;
 			padding: 2px;
 		}
@@ -55,19 +81,18 @@
 		}
 		.fade-in-active {
 			display: inline-block;
-			background: yellow;
 			padding: 10px;
-			animation: fadein 3s;
-			-moz-animation: fadein 3s; /* Firefox */
-			-webkit-animation: fadein 3s; /* Safari and Chrome */
-			-o-animation: fadein 3s; /* Opera */
+			animation: fadein 2s;
+			-moz-animation: fadein 2s; /* Firefox */
+			-webkit-animation: fadein 2s; /* Safari and Chrome */
+			-o-animation: fadein 2s; /* Opera */
 		}
 
 		@keyframes fadein {
-			from {
-					opacity: 0;
+			30% {
+				opacity: 1;
 			}
-			10% {
+			50% {
 				opacity: 1;
 			}
 		}
@@ -84,52 +109,81 @@
 			width: 200px;
 			line-height: 20px;
 			margin-top: 50px;
+			color: var(--color-dark);
+			background: var(--textarea-background);
 		}
 
 		textarea.-active {
-				background: linear-gradient(to bottom, #fff 0px, #A5FECB 0px, #A5FECB 22px, #fff 22px);
+				color: var(--color-dark);
+				background: var(--textarea-active-background);
 				background-attachment: local;
 		}
-		@media (prefers-color-scheme: dark) {
-			* {
-				color: white;
-			}
-			button, input, textarea {
-				color: rgb(39, 39, 39);
-			}
-			body {
-				background-color: rgb(39, 39, 39);
-			}
-			.material-symbols-outlined {
-				color: rgb(39, 39, 39);
-			}
-			.fade-in-active {
-				background: rgb(140, 152, 189);
-			}
-			.stack {
-				border-color: white;
-				/* background-color: rgb(168, 127, 86); */
-			}
-			.divider {
-				border-color: white;
-			}
-			textarea {
-				color: white;
-				background: #777777;
-			}
-			textarea::placeholder {
-				color: white;
-			}
-			textarea.-active {
-				color: white;
-				background: linear-gradient(to bottom, #777777 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #777777 22px);
-				background-attachment: local;
-			}
-			/* .stack {
-				border-color: rgb(130, 130, 130);
-				display: flex;
-				flex-direction: column;
-			} */
+		
+		textarea::placeholder {
+			color: var(--color-dark);
+		}
+
+		.btn-wrap {
+			margin: 5px 0;
+		}
+		.btn-wrap:first {
+			margin-top: 0;
+		}
+		.btn {
+			cursor: pointer;
+		}
+		.btn-floating {
+			position: fixed;
+			bottom: 10px;
+			left: 10px;
+			width: 72px;
+			height: 32px;
+			border-radius: 25px;
+			background-color: linear-gradient(to right, #ffffff 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #e40000 22px);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			cursor: pointer;
+		}
+		.btn-slider {
+			/* darkmode slider with animation*/
+			transition: 1s;
+			background-color: rgb(81, 115, 170);
+		}
+		.btn-slider>.btn-slider-elem {
+			position: absolute;
+			transition: .3s linear;
+			transition-property: left, background-color;
+			left: 0;
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			background-color: rgb(236, 228, 136);
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.btn-slider.active>.btn-slider-elem {
+			left: 50%;
+			background-color: rgb(104, 104, 104);
+		}
+		.btn-slider-elem>.dark-icon,.btn-slider-elem>.light-icon {
+			position: absolute;
+			transition: .3s;
+		}
+		.btn-slider-elem>.dark-icon {
+			opacity: 0;
+		}
+		.btn-slider.active>.btn-slider-elem>.dark-icon {
+			opacity: 1;
+		}
+		.btn-slider-elem>.light-icon {
+			opacity: 1;
+		}
+		.btn-slider.active>.btn-slider-elem>.light-icon {
+			opacity: 0;
 		}
 	</style>
 	<!-- restart -->
@@ -146,6 +200,12 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,1,0" />
 </head>
 <body>
+	<div class="btn btn-floating btn-slider" id="btn-darkmode">
+		<div class="btn-slider-elem">
+			<span class="material-symbols-outlined dark-icon">dark_mode</span>
+			<span class="material-symbols-outlined light-icon">light_mode</span>
+		</div>
+	</div>
 	<div class="wrapper">
 		<div class="btn-group">
 			<h2>Push Swap Visualizer</h2>
@@ -213,6 +273,7 @@
 			<pre>   명령어는 pa나 ra와 같은 push_swap의 명령어를 말함</pre>
 			<p>3. 2번에서 복사된 명령어를 네모칸에 붙여넣으세요</p>
 			버그는 여기로 보내주세용 > <a href="https://github.com/windowdong11/push_swap_visualizer/issues">Issue(링크)</a>
+			<div style="height: 60px;"></div>
 		</div>
 		<div class="stack" id="stack_a">
 		</div>
@@ -237,18 +298,57 @@
 	const commands_elem = document.getElementById('commands-output');
 	const interval_elem = document.getElementById('input-exec-interval');
 
-	window.matchMedia("(prefers-color-scheme: light)").addEventListener("change", e => {
-		if (!e.matches)
-			return;
-		dark_mode = !dark_mode;
+
+	function initDarkMode() {
+		const localDarkmode = localStorage.getItem('pushswap_darkmode');
+		if (!localDarkmode) {
+			const systemDarkmode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+			setDarkMode(systemDarkmode === true ? 'dark' : 'light');
+		}
+		else {
+			setDarkMode(localDarkmode);
+		}
+	}
+	initDarkMode();
+	/**
+	 * localStorage에 다크모드를 저장합니다.
+	 * 
+	 * @param {'dark' | 'light'} mode 
+	 */
+	function setDarkMode(mode) {
+		if (mode === 'dark') {
+			document.querySelector('html').dataset.theme = 'dark';
+			document.getElementById('btn-darkmode').classList.add('active');
+		} else {
+			document.querySelector('html').dataset.theme = 'light';
+			document.getElementById('btn-darkmode').classList.remove('active');
+		}
+		localStorage.setItem('pushswap_darkmode', mode);
+	}
+
+	/**
+	 * localStorage에서 다크모드를 가져옵니다.
+	 * 
+	 * @returns {boolean}
+	 */
+	function getDarkMode() {
+		return localStorage.getItem('pushswap_darkmode');
+	}
+	
+	function toggleDarkMode() {
+		console.log(localStorage.getItem('pushswap_darkmode'), getDarkMode())
+		if (getDarkMode() === 'dark')
+			setDarkMode('light');
+		else
+			setDarkMode('dark');
+	}
+
+	document.getElementById('btn-darkmode').addEventListener('click', (e) => {
+		console.log('click')
+		toggleDarkMode();
 		recalculateAll();
 	});
-	window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", e => {
-		if (!e.matches)
-			return;
-		dark_mode = !dark_mode;
-		recalculateAll();
-	});
+
 	function removeHighlightCommand() {
 		commands_elem.classList.remove('-active');
 	}
@@ -504,21 +604,31 @@
 		command_list = [];
 	}
 
+	function resetAnimation(elem) {
+		elem.style.animation = 'none';
+		elem.offsetHeight;
+		elem.style.animation = null; 
+	}
 	let fade_in_timeout_id = null;
 	function copyExecCommand()
 	{
 		window.navigator.clipboard.writeText(
 			`./push_swap "${number_output.value}" | pbcopy`
 		);
-		if (document.getElementById('modal-copied').classList.contains('fade-in-active'))
+		const modal = document.getElementById('modal-copied');
+		if (modal.classList.contains('fade-in-active'))
 		{
-			document.getElementById('modal-copied').classList.remove('fade-in-active');
+			modal.classList.remove('fade-in-active');
 			clearTimeout(fade_in_timeout_id);
+			fade_in_timeout_id = null;
+			resetAnimation(modal);
 		}
-		document.getElementById('modal-copied').classList.add('fade-in-active');
+		modal.classList.add('fade-in-active');
 		fade_in_timeout_id = setTimeout(() => {
-			document.getElementById('modal-copied').classList.remove('fade-in-active');
-		}, 3000);
+			modal.classList.remove('fade-in-active');
+			fade_in_timeout_id = null;
+			resetAnimation(modal);
+		}, 2000);
 	}
 	
 	
