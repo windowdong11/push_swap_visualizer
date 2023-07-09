@@ -448,8 +448,8 @@
 	})
 
 	function setStackWidth() {
-		stack_a.style.width = `calc(1.2em + ${(Math.abs(max_val) + Math.abs(min_val)) * pixel_diff}px)`;
-		stack_b.style.width = `calc(1.2em + ${(Math.abs(max_val) + Math.abs(min_val)) * pixel_diff}px)`;
+		stack_a.style.minWidth = `calc(1.2em + ${(Math.abs(max_val) + Math.abs(min_val)) * pixel_diff}px)`;
+		stack_b.style.minWidth = `calc(1.2em + ${(Math.abs(max_val) + Math.abs(min_val)) * pixel_diff}px)`;
 	}
 
 	function setWidth(elem) {
