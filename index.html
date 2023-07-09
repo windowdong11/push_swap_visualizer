@@ -7,16 +7,16 @@
 	<title>Push swap visualizer</title>
 	<style>
 		html {
-			--color-white: white;
+			--color-white: #F2F2F2;
 			--color-dark: rgb(39, 39, 39);
 			--information-background: yellow;
 			--textarea-background: var(--color-white);
-			--textarea-active-background: linear-gradient(to bottom, #fff 0px, #A5FECB 0px, #A5FECB 22px, #fff 22px);
+			--textarea-active-background: linear-gradient(to bottom, #F2F2F2 0px, #A5FECB 0px, #A5FECB 22px, #F2F2F2 22px);
 		}
 
 		html[data-theme='dark'] {
 			--color-white: rgb(39, 39, 39);
-			--color-dark: white;
+			--color-dark: #F2F2F2;
 			--btn-color: rgb(39, 39, 39);
 			--information-background: rgb(140, 152, 189);
 			--textarea-background: #777777;
@@ -38,6 +38,7 @@
 
 		body {
 			background-color: var(--color-white);
+			transition: background-color .5s linear;
 		}
 
 		.fade-in-active {
@@ -136,6 +137,7 @@
 			margin-top: 20px;
 			color: var(--color-dark);
 			background: var(--textarea-background);
+			transition: background-color .5s linear;
 		}
 
 		textarea.-active {
