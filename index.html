@@ -359,6 +359,8 @@
 			document.getElementById('btn-darkmode').classList.remove('active');
 		}
 		localStorage.setItem('pushswap_darkmode', mode);
+		dark_mode = mode === 'dark';
+		recalculateAll();
 	}
 
 	/**
@@ -379,7 +381,6 @@
 
 	document.getElementById('btn-darkmode').addEventListener('click', (e) => {
 		toggleDarkMode();
-		recalculateAll();
 	});
 
 	function removeHighlightCommand() {
