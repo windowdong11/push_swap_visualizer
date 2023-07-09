@@ -133,7 +133,7 @@
 			height: 300px;
 			width: 200px;
 			line-height: 20px;
-			margin-top: 50px;
+			margin-top: 20px;
 			color: var(--color-dark);
 			background: var(--textarea-background);
 		}
@@ -304,6 +304,9 @@
 					<button id="btn-exec-prev"><span class="material-symbols-outlined">skip_previous</span></button>
 					<button id="btn-exec-next"><span class="material-symbols-outlined">skip_next</span></button>
 					<button id="btn-exec-reset"><span class="material-symbols-outlined">replay</span></button>
+					<div>
+						<output id="out-sort-result">wait...</output>
+					</div>
 				</div>
 				<textarea id="commands-output" style="width: 90%;resize:vertical;min-height:30em;"
 					placeholder="push_swap을 실행한 명령어를&#13;&#10;여기에 붙여넣으세요 :)" spellcheck="false"></textarea>
@@ -640,6 +643,7 @@
 		clearTimeout(execute_timeout_id);
 		execute_timeout_id = null;
 		command_list = [];
+		document.getElementById('out-sort-result').innerText = `waiting for commands`;
 	}
 
 	function resetAnimation(elem) {
@@ -842,12 +846,39 @@
 			removeHighlightCommand();
 	}
 
+	function checkSorted() {
+		let sorted = true;
+		if (stack_b.children.length !== 0) {
+			sorted = false;
+			for (let i = 0; i < stack_b.children.length; ++i) {
+				stack_b.children[i].style.backgroundColor = 'red';
+			}
+		}
+		let prev = -Infinity;
+		for (let i = 0; i < stack_a.children.length; ++i) {
+			const cur = parseInt(stack_a.children[i].innerText);
+			if (prev > cur) {
+				stack_a.children[i].style.backgroundColor = 'red';
+				sorted = false;
+			}
+			else 
+				prev = cur;
+		}
+		return sorted;
+	}
+
 	function runInputCommand() {
 		commandExecuter();
+		document.getElementById('out-sort-result').innerText = `running...`;
 		if (next_command_idx < command_list.length)
 			execute_timeout_id = setTimeout(runInputCommand, interval_elem.value);
-		else
+		else {
+			if (checkSorted())
+				document.getElementById('out-sort-result').innerText = `sorted! :)`;
+			else
+				document.getElementById('out-sort-result').innerText = `not sorted! ;(`;
 			execute_timeout_id = null;
+		}
 	};
 	function revRunInputCommand() {
 		reverseCommandExecuter();
@@ -856,22 +887,36 @@
 		else
 			execute_timeout_id = null;
 	};
-	commands_elem.addEventListener('input', () => {
-		usedCommandStack = [];
-		clearTimeout(execute_timeout_id);
-		execute_timeout_id = null;
-		command_list = commands_elem.value.trim().split('\n');
-		next_command_idx = 0;
+	function resetCommands() {
+		command_list =  commands_elem.value.trim().split('\n').filter(command => 
+			command === 'pa' || command === 'pb'
+			|| command === 'ra' || command === 'rb' || command === 'rr'
+			|| command === 'rra' || command === 'rrb' || command === 'rrr'
+			|| command === 'sa' || command === 'sb' || command === 'ss'
+		);
+	}
+	function resetStack() {
+		cleanAll();
+		const list = number_output.value.split(' ')
+			.map(strnum => parseInt(strnum))
+			.filter(number => Number.isSafeInteger(number));
+		number_output.value = list.join(' ');
+		list.forEach(i => addNode(i));
+		recalculateAll();
 		removeHighlightCommand();
-		document.getElementById('command_count').innerText = `${countCommands()}`;
+		next_command_idx = 0;
+	}
+
+	commands_elem.addEventListener('input', () => {
+		resetStack();
+		resetCommands();
 	});
 	document.getElementById('btn-exec-start-rev').addEventListener('click', () => {
-		command_list = commands_elem.value.trim().split('\n');
 		clearTimeout(execute_timeout_id);
+		execute_timeout_id = null;
 		revRunInputCommand();
 	});
 	document.getElementById('btn-exec-start').addEventListener('click', () => {
-		command_list = commands_elem.value.trim().split('\n');
 		clearTimeout(execute_timeout_id);
 		runInputCommand();
 	});
@@ -887,15 +932,8 @@
 		commandExecuter();
 	});
 	document.getElementById('btn-exec-reset').addEventListener('click', () => {
-		cleanAll();
-		const list = number_output.value.split(' ')
-			.map(strnum => parseInt(strnum))
-			.filter(number => Number.isSafeInteger(number));
-		number_output.value = list.join(' ');
-		list.forEach(i => addNode(i));
-		recalculateAll();
-		removeHighlightCommand();
-		next_command_idx = 0;
+		resetStack();
+		resetCommands();
 	});
 
 	/* ----------- 초기화 로직 ----------*/
