@@ -348,6 +348,7 @@
 	const number_output = document.getElementById('number-output');
 	const commands_elem = document.getElementById('commands-output');
 	const interval_elem = document.getElementById('input-exec-interval');
+	const command_cnt_elem = document.getElementById('command_count');
 
 
 
@@ -910,9 +911,14 @@
 		next_command_idx = 0;
 	}
 
+	function setCommandCount() {
+		command_cnt_elem.innerText = command_list.length;
+	}
+
 	commands_elem.addEventListener('input', () => {
 		resetStack();
 		resetCommands();
+		setCommandCount();
 	});
 	document.getElementById('btn-exec-start-rev').addEventListener('click', () => {
 		clearTimeout(execute_timeout_id);
