@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: 기능 추가 요청은 이 템플릿을 사용해주세요
+about: 기능 추가/불편함 개선 요청은 이 템플릿을 사용해주세요
 title: "[Feat]"
 labels: enhancement
 assignees: windowdong11
