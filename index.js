@@ -768,6 +768,10 @@ function skipTutorial() {
 
 function endTutorial() {
 	document.getElementById("tutorial-overlay").style.display = "none";
+	tutorialSteps.forEach(step => {
+			const element = document.querySelector(step.element);
+			element.style = "";
+	});
 }
 
 // main logic
