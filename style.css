@@ -239,11 +239,13 @@ textarea::placeholder {
 	padding: 20px;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 	max-width: 300px;
+	background-color: var(--color-white);
 }
 
 .tooltip p {
 	margin: 0 0 10px;
-	word-break:keep-all
+	word-break:keep-all;
+	color: var(--color-dark);
 }
 
 .tooltip button {
@@ -254,12 +256,12 @@ textarea::placeholder {
 .tooltip::after {
 	content: "";
 	position: absolute;
-	left: -10px; /* 왼쪽에서 삼각형이 나오도록 설정 */
+	left: -20px; /* 왼쪽에서 삼각형이 나오도록 설정 */
 	top: 50%;
 	transform: translateY(-50%);
 	border-width: 10px;
 	border-style: solid;
-	border-color: transparent #fff transparent transparent;
+	border-color: transparent var(--color-white) transparent transparent;
 }
 
 /* 왼쪽 사이드바 */
