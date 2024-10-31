@@ -6,227 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Push swap visualizer</title>
 	<meta name="description" content="push swap visualizer">
-	<meta name="keywords" content="push swap, push_swap, visualizer, 42seoul, push swap visualizer, push_swap visualizer, 42 push swap">
-	<style>
-		html {
-			--color-white: #F2F2F2;
-			--color-dark: rgb(39, 39, 39);
-			--information-background: yellow;
-			--textarea-background: var(--color-white);
-			--textarea-active-background: linear-gradient(to bottom, #F2F2F2 0px, #A5FECB 0px, #A5FECB 22px, #F2F2F2 22px);
-		}
-
-		html[data-theme='dark'] {
-			--color-white: rgb(39, 39, 39);
-			--color-dark: #F2F2F2;
-			--btn-color: rgb(39, 39, 39);
-			--information-background: rgb(140, 152, 189);
-			--textarea-background: #777777;
-			--textarea-active-background: linear-gradient(to bottom, #777777 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #777777 22px);
-		}
-
-		* {
-			font-family: 'Courier New', Courier, monospace;
-			color: var(--color-dark);
-		}
-
-		/* dark-mode dev ---------------!!!!!!!!!! */
-		button,
-		input,
-		textarea,
-		.material-symbols-outlined {
-			color: var(--btn-color);
-		}
-
-		body {
-			background-color: var(--color-white);
-			transition: background-color .5s linear;
-		}
-
-		.fade-in-active {
-			background: var(--information-background);
-		}
-
-		.stack {
-			border-color: var(--color-dark);
-		}
-
-		.divider {
-			border-color: var(--color-dark);
-		}
-
-		/* dark-mode dev ends ----------!!!!!!!!!!! */
-		input {
-			font-size: large;
-			margin: 10px 0;
-		}
-
-		.wrapper {
-			display: flex;
-		}
-
-		.stack {
-			border: 1px solid var(--color-dark);
-			min-width: 100px;
-			margin: 0 5px;
-			padding: 3px;
-		}
-
-		.elem {
-			color: var(--color-white);
-			font-family: unset;
-			font-weight: bold;
-			text-align: center;
-			margin: 1px 0;
-		}
-
-		.divider {
-			border: 2px solid var(--color-dark);
-		}
-
-		.divider.vertical {
-			margin: 0 10px;
-		}
-
-		.divider.horizontal {
-			margin: 10px 0;
-		}
-
-		.information {
-			position: fixed;
-			background-color: var(--information-background);
-			border-radius: 5px;
-			padding: 2px;
-		}
-
-		.fade-in {
-			opacity: 0;
-		}
-
-		.fade-in-active {
-			display: inline-block;
-			padding: 10px;
-			animation: fadein 2s;
-			-moz-animation: fadein 2s;
-			/* Firefox */
-			-webkit-animation: fadein 2s;
-			/* Safari and Chrome */
-			-o-animation: fadein 2s;
-			/* Opera */
-		}
-
-		@keyframes fadein {
-			30% {
-				opacity: 1;
-			}
-
-			50% {
-				opacity: 1;
-			}
-		}
-
-		#commands-output::placeholder {
-			font-size: large;
-			text-align: center;
-			padding-top: 50%;
-			transform: translateY(-20%);
-		}
-
-		textarea {
-			height: 300px;
-			width: 200px;
-			line-height: 20px;
-			margin-top: 20px;
-			color: var(--color-dark);
-			background: var(--textarea-background);
-			transition: background-color .5s linear;
-		}
-
-		textarea.-active {
-			color: var(--color-dark);
-			background: var(--textarea-active-background);
-			background-attachment: local;
-		}
-
-		textarea::placeholder {
-			color: var(--color-dark);
-		}
-
-		.btn-wrap {
-			margin: 5px 0;
-		}
-
-		.btn-wrap:first {
-			margin-top: 0;
-		}
-
-		.btn {
-			cursor: pointer;
-		}
-
-		.btn-floating {
-			position: fixed;
-			bottom: 10px;
-			left: 10px;
-			width: 72px;
-			height: 32px;
-			border-radius: 25px;
-			background-color: linear-gradient(to right, #ffffff 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #e40000 22px);
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			cursor: pointer;
-		}
-
-		.btn-slider {
-			/* darkmode slider with animation*/
-			transition: 1s;
-			background-color: rgb(81, 115, 170);
-		}
-
-		.btn-slider>.btn-slider-elem {
-			position: absolute;
-			transition: .3s linear;
-			transition-property: left, background-color;
-			left: 0;
-			width: 36px;
-			height: 36px;
-			border-radius: 50%;
-			background-color: rgb(236, 228, 136);
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.btn-slider.active>.btn-slider-elem {
-			left: 50%;
-			background-color: rgb(104, 104, 104);
-		}
-
-		.btn-slider-elem>.dark-icon,
-		.btn-slider-elem>.light-icon {
-			position: absolute;
-			transition: .3s;
-		}
-
-		.btn-slider-elem>.dark-icon {
-			opacity: 0;
-		}
-
-		.btn-slider.active>.btn-slider-elem>.dark-icon {
-			opacity: 1;
-		}
-
-		.btn-slider-elem>.light-icon {
-			opacity: 1;
-		}
-
-		.btn-slider.active>.btn-slider-elem>.light-icon {
-			opacity: 0;
-		}
-	</style>
+	<meta name="keywords"
+		content="push swap, push_swap, visualizer, 42seoul, push swap visualizer, push_swap visualizer, 42 push swap">
+	<!-- style.css -->
+	<link rel="stylesheet" href="style.css">
 	<!-- restart -->
 	<link rel="stylesheet"
 		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
@@ -249,7 +32,7 @@
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-TEC81J1ZNW"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
+		function gtag() { dataLayer.push(arguments); }
 		gtag('js', new Date());
 
 		gtag('config', 'G-TEC81J1ZNW');
@@ -264,17 +47,25 @@
 		</div>
 	</div>
 	<div class="wrapper">
-		<div class="btn-group">
-			<h2>Push Swap Visualizer</h2>
-			<div>숫자 입력</div>
-			<input id="input-size" placeholder="input number">
-			<span>2000이내 권장</span>
+		<div class="left-sidebar">
+			<div style="display:flex; justify-content: space-between; align-items: center;">
+				<h2>Push Swap Visualizer</h2>
+				<button id="btn-tutorial" style="height: 36px;">튜토리얼</bu>
+			</div>
 			<div>
-				<button id="btn-inc">오름차순</button>
-				<button id="btn-dec">내림차순</button>
-				<button id="btn-random">랜덤</button>
+				<div>숫자 입력</div>
+				<input id="input-size" placeholder="input number">
+				<span>2000이내 권장</span>
+				<div>
+					<div id="btn-sort_group" class="tutorial-group">
+						<button id="btn-inc">오름차순</button>
+						<button id="btn-dec">내림차순</button>
+						<button id="btn-random">랜덤</button>
+					</div>
+				</div>
 			</div>
 			<div class="divider horizontal"></div>
+			<div>시뮬레이션용 버튼</div>
 			<div class="btn-wrap">
 				<button id="btn-pa">pa</button>
 				<button id="btn-pb">pb</button>
@@ -298,33 +89,39 @@
 			<div>
 				<div>생성된 숫자</div>
 				<div id="modal-copied" class="information fade-in">copied! run command in your terminal!</div>
-				<input id="number-output">
-				<button id="copy-number-output" style="height: 34px;margin-right: 10px;">copy</button>
+				<div class="tutorial-group" id="tutorial-generated-numbers">
+					<input id="number-output">
+					<button id="copy-number-output" style="height: 34px;margin-right: 10px;">copy</button>
+				</div>
 			</div>
 			<div class="divider horizontal"></div>
 			<div>
-				<div>사용한 명령어 수 : <span id="command_count">0</span>개</div>
+				<div>명령어 수 : <span id="command_count">0</span>개</div>
 				<div>
+					속도 :
 					<input id="input-exec-interval" type="range" min="1" max="1000" value="100">
 					<output id="output-exec-interval">100ms</output>
 				</div>
-				<div>
-					<button id="btn-exec-start-rev"><span class="material-symbols-outlined"
+				<div id="tutorial-play-btn-group" class="tutorial-group">
+					<button id="btn-exec-start-rev" title="거꾸로 실행"><span class="material-symbols-outlined"
 							style="rotate: 180deg;">play_arrow</span></button>
-					<button id="btn-exec-start"><span class="material-symbols-outlined">play_arrow</span></button>
-					<button id="btn-exec-pause"><span class="material-symbols-outlined">pause</span></button>
-					<button id="btn-exec-prev"><span class="material-symbols-outlined">skip_previous</span></button>
-					<button id="btn-exec-next"><span class="material-symbols-outlined">skip_next</span></button>
-					<button id="btn-exec-reset"><span class="material-symbols-outlined">replay</span></button>
+					<button id="btn-exec-start" title="실행"><span class="material-symbols-outlined">play_arrow</span></button>
+					<button id="btn-exec-pause" title="일시정지"><span class="material-symbols-outlined">pause</span></button>
+					<button id="btn-exec-prev" title="이전 명령어 1개 실행"><span
+							class="material-symbols-outlined">skip_previous</span></button>
+					<button id="btn-exec-next" title="다음 명령어 1개 실행"><span
+							class="material-symbols-outlined">skip_next</span></button>
+					<button id="btn-exec-reset" title="정렬되지 않은 상태로 초기화"><span
+							class="material-symbols-outlined">replay</span></button>
 					<div>
 						<output id="out-sort-result">wait...</output>
 					</div>
 				</div>
-				<textarea id="commands-output" style="width: 90%;resize:vertical;min-height:30em;"
+				<textarea id="commands-output" class="commands-input"
 					placeholder="push_swap을 실행한 명령어를&#13;&#10;여기에 붙여넣으세요 :)" spellcheck="false"></textarea>
 			</div>
 			<h2>How to use?</h2>
-			<p>1. input number에 원소 갯수 입력하고</p>
+			<p>1. input number에 생성할 숫자 갯수 입력</p>
 			<pre>   엔터 또는 오름차순, 내림차순, 랜덤 클릭</pre>
 			<pre>   -> 입력시, 명령어를 자동으로 복사함</pre>
 			<p>2. push_swap이 있는 디렉토리에서 복사된 명령어 실행</p>
@@ -333,648 +130,30 @@
 			<pre>   명령어는 pa나 ra와 같은 push_swap의 명령어를 말함</pre>
 			<p>3. 2번에서 복사된 명령어를 네모칸에 붙여넣으세요</p>
 			기능 추가 및 버그 제보는 여기로 보내주세용 > <a href="https://github.com/windowdong11/push_swap_visualizer/issues">Issue(링크)</a>
+			<div>
+				<h2>패치노트</h2>
+				<p>2024-10-31</p>
+				<pre>  mac 이외에 linux, windows에서도 복사 명령어가 잘 동작하도록 수정했습니다.</pre>
+				<pre>  mac: `pbcopy` windows: `clip` linux: `xclip -selection clipboard`</pre>
+				<pre>  linux 유저분들은 xclip을 설치해주세요. `sudo apt-get install xclip`</pre>
+			</div>
 		</div>
+		<!-- stack A, B -->
 		<div class="stack" id="stack_a">
 		</div>
 		<div class="stack" id="stack_b">
 		</div>
 	</div>
+	<!-- overlay -->
+	<div id="tutorial-overlay" class="tutorial-overlay">
+		<div id="tooltip" class="tooltip">
+			<p id="tooltip-text">튜토리얼 설명 텍스트가 들어갈 곳입니다.</p>
+			<button id="next-step" onclick="nextTutorialStep()">다음</button>
+			<button id="skip-tutorial" onclick="skipTutorial()">튜토리얼 건너뛰기</button>
+			<span id="tutorial-step">1/3</span>
+		</div>
+	</div>
 </body>
-<script>
-	let dark_mode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-	let pixel_diff = 1;
-	let min_val = Infinity;
-	let max_val = -Infinity;
-	let usedSet = new Set();
-	let usedCommandStack = [];
-	let execute_timeout_id = null;
-	let command_list = [];
-	let next_command_idx = 0;
-	let execute_order = 0;
-	const stack_a = document.getElementById('stack_a');
-	const stack_b = document.getElementById('stack_b');
-	const number_output = document.getElementById('number-output');
-	const commands_elem = document.getElementById('commands-output');
-	const interval_elem = document.getElementById('input-exec-interval');
-	const command_cnt_elem = document.getElementById('command_count');
-
-
-
-	/**
-	 * localStorage에 다크모드를 저장합니다.
-	 * 
-	 * @param {'dark' | 'light'} mode 
-	 */
-	function setDarkMode(mode) {
-		if (mode === 'dark') {
-			document.querySelector('html').dataset.theme = 'dark';
-			document.getElementById('btn-darkmode').classList.add('active');
-		} else {
-			document.querySelector('html').dataset.theme = 'light';
-			document.getElementById('btn-darkmode').classList.remove('active');
-		}
-		localStorage.setItem('pushswap_darkmode', mode);
-		dark_mode = mode === 'dark';
-		recalculateAll();
-	}
-
-	/**
-	 * localStorage에서 다크모드를 가져옵니다.
-	 * 
-	 * @returns {boolean}
-	 */
-	function getDarkMode() {
-		return localStorage.getItem('pushswap_darkmode');
-	}
-
-	function toggleDarkMode() {
-		if (getDarkMode() === 'dark')
-			setDarkMode('light');
-		else
-			setDarkMode('dark');
-	}
-
-	document.getElementById('btn-darkmode').addEventListener('click', (e) => {
-		toggleDarkMode();
-	});
-
-	function removeHighlightCommand() {
-		commands_elem.classList.remove('-active');
-	}
-	function highlightCommand(linenumber) {
-		const height = linenumber * 20;
-		commands_elem.classList.add('-active');
-		commands_elem.style.backgroundPositionY = `${height}px`;
-		commands_elem.scroll(0, Math.max(0, height - 40));
-	}
-
-	function pickHex(color1, color2, weight) {
-		const w1 = 1 - weight;
-		const w2 = weight;
-		return (Math.round(color1.red * w1 + color2.red * w2).toString(16).padStart(2, '0')
-			+ Math.round(color1.green * w1 + color2.green * w2).toString(16).padStart(2, '0')
-			+ Math.round(color1.blue * w1 + color2.blue * w2).toString(16).padStart(2, '0'));
-	}
-
-	function parseRGB(str) {
-		const rgb = str.match(/.{1,2}/g);
-		return {
-			red: parseInt(rgb[0], 16),
-			green: parseInt(rgb[1], 16),
-			blue: parseInt(rgb[2], 16),
-		};
-	}
-
-	function pickColor(number) {
-		const colors = dark_mode ? [
-			parseRGB("BBD2C5"),
-			parseRGB("536976"),
-			parseRGB("292E49"),
-		] : [
-			parseRGB("A5FECB"),
-			parseRGB("20BDFF"),
-			parseRGB("5433FF"),
-		];
-		const percent = number / (max_val - min_val + 1) * ((colors.length - 2) + 0.9);
-		return pickHex(colors[Math.floor(percent)], colors[Math.floor(percent) + 1], percent % 1);
-	}
-
-	function setColor(elem) {
-		const number = parseInt(elem.innerText);
-		if (!Number.isInteger(number))
-			return;
-		elem.style.backgroundColor = `#${pickColor(number)}`
-	}
-
-	function setExecInterval(millisecond) {
-		if (millisecond <= 0 || 1000 < millisecond)
-			return;
-		localStorage.setItem('pushswap_exec_interval', `${millisecond}`);
-		document.getElementById('output-exec-interval').value = `${millisecond}ms`
-		interval_elem.value = millisecond;
-	}
-
-	function getExecInterval() {
-		const localExecInterval = parseInt(localStorage.getItem('pushswap_exec_interval'));
-		return localExecInterval;
-	}
-	interval_elem.addEventListener('input', e => {
-		setExecInterval(parseInt(e.target.value));
-	})
-
-	function setStackWidth() {
-		stack_a.style.minWidth = `calc(1.2em + ${(Math.abs(max_val) + Math.abs(min_val)) * pixel_diff}px)`;
-		stack_b.style.minWidth = `calc(1.2em + ${(Math.abs(max_val) + Math.abs(min_val)) * pixel_diff}px)`;
-	}
-
-	function setWidth(elem) {
-		const number = parseInt(elem.innerText);
-		elem.style.width = `calc(1.2em + ${Math.abs(number) * pixel_diff}px)`;
-		if (min_val < 0) {
-			if (number < 0)
-				elem.style.marginLeft = `calc(${Math.abs(number - min_val) * pixel_diff}px)`;
-			else
-				elem.style.marginLeft = `calc(${Math.abs(min_val) * pixel_diff}px)`;
-		}
-	}
-
-	function recalculateAll() {
-		pixel_diff = 500 / (Math.abs(max_val) + Math.abs(min_val));
-		setStackWidth();
-		for (let i = 0; i < stack_a.children.length; ++i) {
-			setWidth(stack_a.children[i]);
-			setColor(stack_a.children[i]);
-		}
-		for (let i = 0; i < stack_b.children.length; ++i) {
-			setWidth(stack_b.children[i]);
-			setColor(stack_b.children[i]);
-		}
-	}
-
-	function newElem(number) {
-		if (!Number.isInteger(number))
-			return null;
-		if (usedSet.has(number)) {
-			return null;
-		}
-		usedSet.add(number);
-		const elem = document.createElement('div');
-		elem.innerText = `${number}`
-		elem.classList.add('elem');
-		min_val = Math.min(min_val, number);
-		max_val = Math.max(max_val, number);
-		setWidth(elem);
-		return elem;
-	}
-
-	function popTop(from) {
-		if (!from)
-			return;
-		const elem = from.firstElementChild;
-		if (!elem)
-			return null;
-		from.removeChild(elem);
-		return elem;
-	}
-
-	function popBottom(from) {
-		if (!from)
-			return null;
-		const elem = from.lastElementChild;
-		if (!elem)
-			return null;
-		from.removeChild(elem);
-		return elem;
-	}
-
-	function pushTop(to, elem) {
-		if (!to || !elem)
-			return;
-		to.prepend(elem);
-	}
-
-	function pushBottom(to, elem) {
-		if (!to || !elem)
-			return;
-		to.appendChild(elem);
-	}
-
-	function rotate(stack) {
-		if (!stack)
-			return;
-		pushBottom(stack, popTop(stack));
-	}
-
-	function reverseRotate(stack) {
-		if (!stack)
-			return;
-		pushTop(stack, popBottom(stack));
-	}
-
-	function swap(stack) {
-		if (!stack)
-			return;
-		pushTop(stack, stack.firstElementChild?.nextElementSibling);
-	}
-
-	function addNode(number) {
-		if (!number)
-			return;
-		pushBottom(stack_a, newElem(number));
-	}
-
-	function pa() {
-		pushTop(stack_a, popTop(stack_b));
-	}
-
-	function pb() {
-		pushTop(stack_b, popTop(stack_a));
-	}
-
-	function ra() {
-		pushBottom(stack_a, popTop(stack_a));
-	}
-
-	function rb() {
-		pushBottom(stack_b, popTop(stack_b));
-	}
-
-	function rr() {
-		pushBottom(stack_a, popTop(stack_a));
-		pushBottom(stack_b, popTop(stack_b));
-	}
-
-	function rra() {
-		pushTop(stack_a, popBottom(stack_a));
-	}
-
-	function rrb() {
-		pushTop(stack_b, popBottom(stack_b));
-	}
-
-	function rrr() {
-		pushTop(stack_a, popBottom(stack_a));
-		pushTop(stack_b, popBottom(stack_b));
-	}
-
-	function sa() {
-		swap(stack_a);
-	}
-
-	function sb() {
-		swap(stack_b);
-	}
-
-	function ss() {
-		swap(stack_a);
-		swap(stack_b);
-	}
-	document.getElementById('btn-pa').addEventListener('click', () => {
-		pa();
-	});
-	document.getElementById('btn-pb').addEventListener('click', () => {
-		pb();
-	});
-	document.getElementById('btn-ra').addEventListener('click', () => {
-		ra();
-	});
-	document.getElementById('btn-rb').addEventListener('click', () => {
-		rb();
-	});
-	document.getElementById('btn-rr').addEventListener('click', () => {
-		rr();
-	});
-	document.getElementById('btn-rra').addEventListener('click', () => {
-		rra();
-	});
-	document.getElementById('btn-rrb').addEventListener('click', () => {
-		rrb();
-	});
-	document.getElementById('btn-rrr').addEventListener('click', () => {
-		rrr();
-	});
-	document.getElementById('btn-sa').addEventListener('click', () => {
-		sa();
-	});
-	document.getElementById('btn-sb').addEventListener('click', () => {
-		sb();
-	});
-	document.getElementById('btn-ss').addEventListener('click', () => {
-		ss();
-	});
-
-
-	function cleanAll() {
-		min_val = Infinity;
-		max_val = -Infinity;
-		pixel_diff = 5;
-		usedSet = new Set();
-		usedCommandStack = [];
-		stack_a.replaceChildren();
-		stack_b.replaceChildren();
-		clearTimeout(execute_timeout_id);
-		execute_timeout_id = null;
-		command_list = [];
-		document.getElementById('out-sort-result').innerText = `waiting for commands`;
-	}
-
-	function resetAnimation(elem) {
-		elem.style.animation = 'none';
-		elem.offsetHeight;
-		elem.style.animation = null;
-	}
-	let fade_in_timeout_id = null;
-	function copyExecCommand() {
-		window.navigator.clipboard.writeText(
-			`./push_swap "${number_output.value}" | pbcopy`
-		);
-		const modal = document.getElementById('modal-copied');
-		if (modal.classList.contains('fade-in-active')) {
-			modal.classList.remove('fade-in-active');
-			clearTimeout(fade_in_timeout_id);
-			fade_in_timeout_id = null;
-			resetAnimation(modal);
-		}
-		modal.classList.add('fade-in-active');
-		fade_in_timeout_id = setTimeout(() => {
-			modal.classList.remove('fade-in-active');
-			fade_in_timeout_id = null;
-			resetAnimation(modal);
-		}, 2000);
-	}
-
-
-	function readSize() {
-		const size = parseInt(document.getElementById('input-size').value);
-		if (!Number.isSafeInteger(size))
-			return null;
-		return size;
-	}
-
-	document.getElementById('btn-inc').addEventListener('click', () => {
-		const count = readSize();
-		if (!count)
-			return;
-		cleanAll();
-		let list = Array.from({ length: count }, (_, i) => i + 1);
-		number_output.value = list.join(' ');
-		list.forEach(i => addNode(i));
-		recalculateAll();
-		copyExecCommand();
-	});
-
-	document.getElementById('btn-dec').addEventListener('click', () => {
-		const count = readSize();
-		if (!count)
-			return;
-		cleanAll();
-		let list = Array.from({ length: count }, (_, i) => count - i);
-		number_output.value = list.join(' ');
-		list.forEach(i => addNode(i));
-		recalculateAll();
-		copyExecCommand();
-	});
-
-	function setRandom() {
-		const count = readSize();
-		if (!count)
-			return;
-		cleanAll();
-		let list = Array.from({ length: count }, (_, i) => i + 1);
-		const shuffleCnt = count * 10;
-		for (let i = 0; i < shuffleCnt; ++i) {
-			const first = Math.floor(Math.random() * count);
-			const second = Math.floor(Math.random() * count);
-			const tmp = list[first];
-			list[first] = list[second];
-			list[second] = tmp;
-		}
-		number_output.value = list.join(' ');
-		list.forEach(i => addNode(i));
-		recalculateAll();
-		copyExecCommand();
-	}
-	document.getElementById('btn-random').addEventListener('click', setRandom);
-	document.getElementById('input-size').addEventListener('keydown', e => {
-		if (e.code === "Enter")
-			setRandom();
-	})
-	document.getElementById('copy-number-output').addEventListener('click', () => {
-		copyExecCommand();
-	});
-	document.getElementById('btn-exec-reset').addEventListener('click', () => {
-		cleanAll();
-		const list = number_output.value.split(' ')
-			.map(strnum => parseInt(strnum))
-			.filter(number => Number.isSafeInteger(number));
-		number_output.value = list.join(' ');
-		list.forEach(i => addNode(i));
-	});
-
-	function countCommands() {
-		return command_list.filter((command) => {
-			return (command === 'pa' || command === 'pb'
-				|| command === 'ra' || command === 'rb' || command === 'rr'
-				|| command === 'rra' || command === 'rrb' || command === 'rrr'
-				|| command === 'sa' || command === 'sb' || command === 'ss');
-		}).length;
-	}
-
-	function commandExecuter() {
-		for (let idx = next_command_idx; idx < command_list.length; ++idx) {
-			let is_updated = true;
-			switch (command_list[idx]) {
-				case 'pa':
-					pa();
-					break;
-				case 'pb':
-					pb();
-					break;
-				case 'ra':
-					ra();
-					break;
-				case 'rb':
-					rb();
-					break;
-				case 'rr':
-					rr();
-					break;
-				case 'rra':
-					rra();
-					break;
-				case 'rrb':
-					rrb();
-					break;
-				case 'rrr':
-					rrr();
-					break;
-				case 'sa':
-					sa();
-					break;
-				case 'sb':
-					sb();
-					break;
-				case 'ss':
-					ss();
-					break;
-				default:
-					is_updated = false;
-					break;
-			}
-			if (is_updated) {
-				highlightCommand(idx + 1);
-				next_command_idx = idx + 1;
-				usedCommandStack.push(idx);
-				break;
-			}
-		}
-	}
-
-	function reverseCommandExecuter() {
-		if (usedCommandStack.length === 0)
-			return;
-		switch (command_list[usedCommandStack[usedCommandStack.length - 1]]) {
-			case 'pa':
-				pb();
-				break;
-			case 'pb':
-				pa();
-				break;
-			case 'ra':
-				rra();
-				break;
-			case 'rb':
-				rrb();
-				break;
-			case 'rr':
-				rrr();
-				break;
-			case 'rra':
-				ra();
-				break;
-			case 'rrb':
-				rb();
-				break;
-			case 'rrr':
-				rr();
-				break;
-			case 'sa':
-				sa();
-				break;
-			case 'sb':
-				sb();
-				break;
-			case 'ss':
-				ss();
-				break;
-			default:
-				is_updated = false;
-				break;
-		}
-		highlightCommand(usedCommandStack[usedCommandStack.length - 1] - 1);
-		next_command_idx = usedCommandStack[usedCommandStack.length - 1];
-		usedCommandStack.pop();
-		if (usedCommandStack.length === 0)
-			removeHighlightCommand();
-	}
-
-	function checkSorted() {
-		let sorted = true;
-		if (stack_b.children.length !== 0) {
-			sorted = false;
-			for (let i = 0; i < stack_b.children.length; ++i) {
-				stack_b.children[i].style.backgroundColor = 'red';
-			}
-		}
-		let prev = -Infinity;
-		for (let i = 0; i < stack_a.children.length; ++i) {
-			const cur = parseInt(stack_a.children[i].innerText);
-			if (prev > cur) {
-				stack_a.children[i].style.backgroundColor = 'red';
-				sorted = false;
-			}
-			else 
-				prev = cur;
-		}
-		return sorted;
-	}
-
-	function runInputCommand() {
-		commandExecuter();
-		document.getElementById('out-sort-result').innerText = `running...`;
-		if (next_command_idx < command_list.length)
-			execute_timeout_id = setTimeout(runInputCommand, interval_elem.value);
-		else {
-			if (checkSorted())
-				document.getElementById('out-sort-result').innerText = `sorted! :)`;
-			else
-				document.getElementById('out-sort-result').innerText = `not sorted! ;(`;
-			execute_timeout_id = null;
-		}
-	};
-	function revRunInputCommand() {
-		reverseCommandExecuter();
-		if (0 < usedCommandStack.length)
-			execute_timeout_id = setTimeout(revRunInputCommand, interval_elem.value);
-		else
-			execute_timeout_id = null;
-	};
-	function resetCommands() {
-		command_list =  commands_elem.value.trim().split('\n').filter(command => 
-			command === 'pa' || command === 'pb'
-			|| command === 'ra' || command === 'rb' || command === 'rr'
-			|| command === 'rra' || command === 'rrb' || command === 'rrr'
-			|| command === 'sa' || command === 'sb' || command === 'ss'
-		);
-	}
-	function resetStack() {
-		cleanAll();
-		const list = number_output.value.split(' ')
-			.map(strnum => parseInt(strnum))
-			.filter(number => Number.isSafeInteger(number));
-		number_output.value = list.join(' ');
-		list.forEach(i => addNode(i));
-		recalculateAll();
-		removeHighlightCommand();
-		next_command_idx = 0;
-	}
-
-	function setCommandCount() {
-		command_cnt_elem.innerText = command_list.length;
-	}
-
-	commands_elem.addEventListener('input', () => {
-		resetStack();
-		resetCommands();
-		setCommandCount();
-	});
-	document.getElementById('btn-exec-start-rev').addEventListener('click', () => {
-		clearTimeout(execute_timeout_id);
-		execute_timeout_id = null;
-		revRunInputCommand();
-	});
-	document.getElementById('btn-exec-start').addEventListener('click', () => {
-		clearTimeout(execute_timeout_id);
-		runInputCommand();
-	});
-	document.getElementById('btn-exec-pause').addEventListener('click', () => {
-		clearTimeout(execute_timeout_id);
-	});
-	document.getElementById('btn-exec-prev').addEventListener('click', () => {
-		clearTimeout(execute_timeout_id);
-		reverseCommandExecuter();
-	});
-	document.getElementById('btn-exec-next').addEventListener('click', () => {
-		clearTimeout(execute_timeout_id);
-		commandExecuter();
-	});
-	document.getElementById('btn-exec-reset').addEventListener('click', () => {
-		resetStack();
-		resetCommands();
-	});
-
-	/* ----------- 초기화 로직 ----------*/
-	function initDarkMode() {
-		const localDarkmode = localStorage.getItem('pushswap_darkmode');
-		if (!localDarkmode) {
-			const systemDarkmode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-			setDarkMode(systemDarkmode === true ? 'dark' : 'light');
-		}
-		else {
-			setDarkMode(localDarkmode);
-		}
-	}
-	function initExecInterval() {
-		const localExecInterval = getExecInterval();
-		if (!Number.isInteger(localExecInterval)) {
-			setExecInterval(100);
-		}
-		else {
-			setExecInterval(localExecInterval);
-		}
-	}
-	initDarkMode();
-	initExecInterval();
-</script>
+<script src="index.js" defer></script>
 
 </html>

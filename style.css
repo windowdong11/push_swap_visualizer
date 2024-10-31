@@ -1,0 +1,279 @@
+html {
+	--color-white: #F2F2F2;
+	--color-dark: rgb(39, 39, 39);
+	--information-background: yellow;
+	--textarea-background: var(--color-white);
+	--textarea-active-background: linear-gradient(to bottom, #F2F2F2 0px, #A5FECB 0px, #A5FECB 22px, #F2F2F2 22px);
+}
+
+html[data-theme='dark'] {
+	--color-white: rgb(39, 39, 39);
+	--color-dark: #F2F2F2;
+	--btn-color: rgb(39, 39, 39);
+	--information-background: rgb(140, 152, 189);
+	--textarea-background: #777777;
+	--textarea-active-background: linear-gradient(to bottom, #777777 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #777777 22px);
+}
+
+* {
+	font-family: 'Courier New', Courier, monospace;
+	color: var(--color-dark);
+}
+
+/* dark-mode dev ---------------!!!!!!!!!! */
+button,
+input,
+textarea,
+.material-symbols-outlined {
+	color: var(--btn-color);
+}
+
+body {
+	background-color: var(--color-white);
+	transition: background-color .5s linear;
+}
+
+.fade-in-active {
+	background: var(--information-background);
+}
+
+.stack {
+	border-color: var(--color-dark);
+}
+
+.divider {
+	border-color: var(--color-dark);
+}
+
+/* dark-mode dev ends ----------!!!!!!!!!!! */
+input {
+	font-size: large;
+	margin: 10px 0;
+}
+
+.wrapper {
+	display: flex;
+}
+
+.stack {
+	border: 1px solid var(--color-dark);
+	min-width: 100px;
+	margin: 0 5px;
+	padding: 3px;
+}
+
+.elem {
+	color: var(--color-white);
+	font-family: unset;
+	font-weight: bold;
+	text-align: center;
+	margin: 1px 0;
+}
+
+.divider {
+	border: 2px solid var(--color-dark);
+}
+
+.divider.vertical {
+	margin: 0 10px;
+}
+
+.divider.horizontal {
+	margin: 10px 0;
+}
+
+.information {
+	position: fixed;
+	background-color: var(--information-background);
+	border-radius: 5px;
+	padding: 2px;
+}
+
+.fade-in {
+	opacity: 0;
+}
+
+.fade-in-active {
+	display: inline-block;
+	padding: 10px;
+	animation: fadein 2s;
+	-moz-animation: fadein 2s;
+	/* Firefox */
+	-webkit-animation: fadein 2s;
+	/* Safari and Chrome */
+	-o-animation: fadein 2s;
+	/* Opera */
+}
+
+@keyframes fadein {
+	30% {
+		opacity: 1;
+	}
+
+	50% {
+		opacity: 1;
+	}
+}
+
+#commands-output::placeholder {
+	font-size: large;
+	text-align: center;
+	padding-top: 50%;
+	transform: translateY(-20%);
+}
+
+textarea {
+	height: 300px;
+	width: 200px;
+	line-height: 20px;
+	margin-top: 20px;
+	color: var(--color-dark);
+	background: var(--textarea-background);
+	transition: background-color .5s linear;
+}
+
+textarea.-active {
+	color: var(--color-dark);
+	background: var(--textarea-active-background);
+	background-attachment: local;
+}
+
+textarea::placeholder {
+	color: var(--color-dark);
+}
+
+.btn-wrap {
+	margin: 5px 0;
+}
+
+.btn-wrap:first {
+	margin-top: 0;
+}
+
+.btn {
+	cursor: pointer;
+}
+
+.btn-floating {
+	position: fixed;
+	bottom: 10px;
+	left: 10px;
+	width: 72px;
+	height: 32px;
+	border-radius: 25px;
+	background-color: linear-gradient(to right, #ffffff 0px, rgb(48, 55, 80) 0px, rgb(48, 55, 80) 22px, #e40000 22px);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+}
+
+.btn-slider {
+	/* darkmode slider with animation*/
+	transition: 1s;
+	background-color: rgb(81, 115, 170);
+}
+
+.btn-slider>.btn-slider-elem {
+	position: absolute;
+	transition: .3s linear;
+	transition-property: left, background-color;
+	left: 0;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	background-color: rgb(236, 228, 136);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.btn-slider.active>.btn-slider-elem {
+	left: 50%;
+	background-color: rgb(104, 104, 104);
+}
+
+.btn-slider-elem>.dark-icon,
+.btn-slider-elem>.light-icon {
+	position: absolute;
+	transition: .3s;
+}
+
+.btn-slider-elem>.dark-icon {
+	opacity: 0;
+}
+
+.btn-slider.active>.btn-slider-elem>.dark-icon {
+	opacity: 1;
+}
+
+.btn-slider-elem>.light-icon {
+	opacity: 1;
+}
+
+.btn-slider.active>.btn-slider-elem>.light-icon {
+	opacity: 0;
+}
+
+/* 튜토리얼 css */
+
+/* 오버레이 */
+.tutorial-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: none; /* 처음에는 숨김 */
+	z-index: 1000;
+}
+
+/* 오른쪽에 나타나는 말풍선 스타일 */
+.tooltip {
+	position: absolute;
+	background-color: #fff;
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	max-width: 300px;
+}
+
+.tooltip p {
+	margin: 0 0 10px;
+	word-break:keep-all
+}
+
+.tooltip button {
+	margin-right: 10px;
+}
+
+/* 말풍선 삼각형 */
+.tooltip::after {
+	content: "";
+	position: absolute;
+	left: -10px; /* 왼쪽에서 삼각형이 나오도록 설정 */
+	top: 50%;
+	transform: translateY(-50%);
+	border-width: 10px;
+	border-style: solid;
+	border-color: transparent #fff transparent transparent;
+}
+
+/* 왼쪽 사이드바 */
+.left-sidebar {
+	margin-right: 3px;
+}
+
+/* 튜토리얼의 각 단계에서 강조할 요소(들)을 감싸는 래퍼를 위한 클래스 */
+.tutorial-group {
+	display: inline-block;
+}
+
+.commands-input {
+	width: 90%;
+	resize:vertical;
+	min-height:30em;
+}
