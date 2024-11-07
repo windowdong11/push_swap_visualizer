@@ -16,7 +16,7 @@ html[data-theme='dark'] {
 }
 
 * {
-	font-family: 'Courier New', Courier, monospace;
+	/* font-family: 'Courier New', Courier, monospace; */
 	color: var(--color-dark);
 }
 
