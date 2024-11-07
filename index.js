@@ -41,7 +41,24 @@ const os = (() => {
 	}
 })();
 
+/**
+ * 
+ * @param {string} key 
+ * @param {string | null} defaultValue 
+ * @returns 
+ */
+function loadSetting(key, defaultValue = null) {
+	const value = localStorage.getItem(key);
+	if (value === null)
+		return defaultValue;
+	return value;
+}
+function storeSetting(key, value) {
+	localStorage.setItem(key, value);
+}
 
+// btn-darkmode 요소 선택
+const darkmodeBtn = document.getElementById('btn-darkmode');
 
 /**
  * localStorage에 다크모드를 저장합니다.
@@ -51,12 +68,12 @@ const os = (() => {
 function setDarkMode(mode) {
 	if (mode === 'dark') {
 		document.querySelector('html').dataset.theme = 'dark';
-		document.getElementById('btn-darkmode').classList.add('active');
+		darkmodeBtn.classList.add('active');
 	} else {
 		document.querySelector('html').dataset.theme = 'light';
-		document.getElementById('btn-darkmode').classList.remove('active');
+		darkmodeBtn.classList.remove('active');
 	}
-	localStorage.setItem('pushswap_darkmode', mode);
+	storeSetting('pushswap_darkmode', mode);
 	dark_mode = mode === 'dark';
 	recalculateAll();
 }
@@ -67,9 +84,12 @@ function setDarkMode(mode) {
  * @returns {boolean}
  */
 function getDarkMode() {
-	return localStorage.getItem('pushswap_darkmode');
+	return loadSetting('pushswap_darkmode', 'light');
 }
 
+/**
+ * 다크모드를 토글합니다.
+ */
 function toggleDarkMode() {
 	if (getDarkMode() === 'dark')
 		setDarkMode('light');
@@ -77,10 +97,51 @@ function toggleDarkMode() {
 		setDarkMode('dark');
 }
 
-document.getElementById('btn-darkmode').addEventListener('click', (e) => {
-	toggleDarkMode();
+
+// 마우스 이벤트 상태를 저장할 변수
+const darkmodeBtnStatus = {
+	isDragging: false,
+	offsetX: 0,
+	offsetY: 0,
+};
+
+function moveDarkmodeBtn(x, y) {
+	darkmodeBtn.style.left = `${x}px`;
+	darkmodeBtn.style.top = `${y}px`;
+	storeSetting('pushswap_darkmode_btn_position', `${x},${y}`);
+}
+
+/**
+ * 다크모드 버튼이 클릭되면 다크모드를 토글합니다.
+ */
+darkmodeBtn.addEventListener('mousedown', (e) => {
+	darkmodeBtnStatus.offsetX = e.clientX - darkmodeBtn.getBoundingClientRect().left;
+	darkmodeBtnStatus.offsetY = e.clientY - darkmodeBtn.getBoundingClientRect().top;
 });
 
+darkmodeBtn.addEventListener('mouseup', (e) => {
+	const isBtnDragged = darkmodeBtnStatus.isDragging;
+	darkmodeBtnStatus.isDragging = false;
+	if (isBtnDragged === true)
+		return;
+	toggleDarkMode();
+})
+
+// 마우스 이동 이벤트 (드래그 중)
+darkmodeBtn.addEventListener('mousemove', (e) => {
+	if ((e.buttons & 1) === 0) return;
+	darkmodeBtnStatus.isDragging = true;
+	const x = e.clientX - darkmodeBtnStatus.offsetX;
+	const y = e.clientY - darkmodeBtnStatus.offsetY;
+	
+	// 버튼의 위치를 이동
+	moveDarkmodeBtn(x, y);
+});
+
+
+/**
+ * 실행중인 명령어를 강조하거나 강조를 제거합니다.
+ */
 function removeHighlightCommand() {
 	commands_elem.classList.remove('-active');
 }
@@ -132,13 +193,13 @@ function setColor(elem) {
 function setExecInterval(millisecond) {
 	if (millisecond <= 0 || 1000 < millisecond)
 		return;
-	localStorage.setItem('pushswap_exec_interval', `${millisecond}`);
+	storeSetting('pushswap_exec_interval', `${millisecond}`);
 	document.getElementById('output-exec-interval').value = `${millisecond}ms`
 	interval_elem.value = millisecond;
 }
 
 function getExecInterval() {
-	const localExecInterval = parseInt(localStorage.getItem('pushswap_exec_interval'));
+	const localExecInterval = parseInt(loadSetting('pushswap_exec_interval'));
 	return localExecInterval;
 }
 interval_elem.addEventListener('input', e => {
@@ -644,7 +705,7 @@ document.getElementById('btn-exec-reset').addEventListener('click', () => {
 
 /* ----------- 초기화 로직 ----------*/
 function initDarkMode() {
-	const localDarkmode = localStorage.getItem('pushswap_darkmode');
+	const localDarkmode = loadSetting('pushswap_darkmode');
 	if (!localDarkmode) {
 		const systemDarkmode = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 		setDarkMode(systemDarkmode === true ? 'dark' : 'light');
@@ -652,23 +713,23 @@ function initDarkMode() {
 	else {
 		setDarkMode(localDarkmode);
 	}
+	const darkmodeBtnPosition = loadSetting('pushswap_darkmode_btn_position');
+	if (darkmodeBtnPosition) {
+		const [x, y] = darkmodeBtnPosition.split(',').map(Number);
+		moveDarkmodeBtn(x, y);
+	}
 }
 function initExecInterval() {
-	const localExecInterval = getExecInterval();
-	if (!Number.isInteger(localExecInterval)) {
-		setExecInterval(100);
-	}
-	else {
-		setExecInterval(localExecInterval);
-	}
+	const localExecInterval = loadSetting('pushswap_exec_interval', '100');
+	setExecInterval(localExecInterval);
 }
 
 /* 첫 방문 튜토리얼 등을 위한 클래스 */
 const firstVisitEventManager = (() => {
 	const handlers = [];
-	const setVisited = () => localStorage.setItem('visited', 'true');
+	const setVisited = () => storeSetting('visited', 'true');
 	return {
-		isFirstVisit: () => localStorage.getItem('visited') === null,
+		isFirstVisit: () => loadSetting('visited') === null,
 		addFirstVisitHandler: (handler) => {
 			handlers.push(handler);
 		},
@@ -774,6 +835,17 @@ function endTutorial() {
 	});
 }
 
+
+/**
+ * 패치노트를 열거나 닫습니다.
+ */
+document.querySelectorAll('.toggle-header').forEach(header => {
+	header.addEventListener('click', () => {
+			const patchNote = header.parentElement;
+			// 패치노트를 열거나 닫기
+			patchNote.classList.toggle('open');
+	});
+});
 // main logic
 
 firstVisitEventManager.addFirstVisitHandler(startTutorial);

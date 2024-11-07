@@ -171,8 +171,11 @@ textarea::placeholder {
 
 .btn-slider {
 	/* darkmode slider with animation*/
-	transition: 1s;
+	transition: background-color 1s;
 	background-color: rgb(81, 115, 170);
+	user-select: none; /* 텍스트 선택 방지 */
+	-webkit-user-drag: none; /* 드래그 방지 (크롬, 사파리) */
+	/* pointer-events: auto; 클릭은 가능하지만 드래그는 불가능 */
 }
 
 .btn-slider>.btn-slider-elem {
@@ -278,4 +281,34 @@ textarea::placeholder {
 	width: 90%;
 	resize:vertical;
 	min-height:30em;
+}
+
+
+/* 패치노트 */
+.patch-note .content {
+	display: none;
+}
+
+.patch-note.open .content {
+	display: block;
+}
+
+.toggle-header {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+
+.toggle-header:hover {
+	background-color: #e3e3e3;
+}
+
+.patch-note > .toggle-header > .icon {
+	display: inline-block;
+	margin-right: 8px;
+	transition: transform 0.3s;
+}
+
+.patch-note.open > .toggle-header > .icon {
+	transform: rotate(-90deg); /* 열림 상태에서 화살표 회전 */
 }
