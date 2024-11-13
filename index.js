@@ -105,9 +105,22 @@ const darkmodeBtnStatus = {
 	offsetY: 0,
 };
 
+function clampGenerator(min, max) {
+	return (value, size = 0) => {
+		return Math.min(Math.max(min, value), Math.max(min, max - size));
+	};
+}
+
+function scrollBarWidth() {
+	return window.innerWidth - document.documentElement.clientWidth;
+}
+
+const clampX = clampGenerator(0, window.innerWidth - scrollBarWidth());
+const clampY = clampGenerator(0, window.innerHeight);
+
 function moveDarkmodeBtn(x, y) {
-	darkmodeBtn.style.left = `${x}px`;
-	darkmodeBtn.style.top = `${y}px`;
+	darkmodeBtn.style.left = `${clampX(x, darkmodeBtn.offsetWidth)}px`;
+	darkmodeBtn.style.top = `${clampY(y, darkmodeBtn.offsetHeight)}px`;
 	storeSetting('pushswap_darkmode_btn_position', `${x},${y}`);
 }
 
