@@ -111,31 +111,33 @@ function moveDarkmodeBtn(x, y) {
 	storeSetting('pushswap_darkmode_btn_position', `${x},${y}`);
 }
 
-/**
- * 다크모드 버튼이 클릭되면 다크모드를 토글합니다.
- */
-darkmodeBtn.addEventListener('mousedown', (e) => {
-	darkmodeBtnStatus.offsetX = e.clientX - darkmodeBtn.getBoundingClientRect().left;
-	darkmodeBtnStatus.offsetY = e.clientY - darkmodeBtn.getBoundingClientRect().top;
-});
-
-darkmodeBtn.addEventListener('mouseup', (e) => {
-	const isBtnDragged = darkmodeBtnStatus.isDragging;
-	darkmodeBtnStatus.isDragging = false;
-	if (isBtnDragged === true)
-		return;
-	toggleDarkMode();
-})
-
-// 마우스 이동 이벤트 (드래그 중)
-darkmodeBtn.addEventListener('mousemove', (e) => {
-	if ((e.buttons & 1) === 0) return;
+function handleDarkmodeDrag(e) {
 	darkmodeBtnStatus.isDragging = true;
 	const x = e.clientX - darkmodeBtnStatus.offsetX;
 	const y = e.clientY - darkmodeBtnStatus.offsetY;
 	
 	// 버튼의 위치를 이동
 	moveDarkmodeBtn(x, y);
+}
+
+function handleDarkmodeMouseUp(e) {
+	const isBtnDragged = darkmodeBtnStatus.isDragging;
+	darkmodeBtnStatus.isDragging = false;
+	document.removeEventListener('mousemove', handleDarkmodeDrag);
+	document.removeEventListener('mouseup', handleDarkmodeMouseUp);
+	if (!isBtnDragged)
+		toggleDarkMode();
+}
+
+/**
+ * 다크모드 버튼이 클릭되면 다크모드를 토글합니다.
+ */
+document.addEventListener('mousedown', (e) => {
+	if (!e.target.closest('#btn-darkmode')) return;
+	darkmodeBtnStatus.offsetX = e.clientX - darkmodeBtn.getBoundingClientRect().left;
+	darkmodeBtnStatus.offsetY = e.clientY - darkmodeBtn.getBoundingClientRect().top;
+	document.addEventListener('mouseup', handleDarkmodeMouseUp);
+	document.addEventListener('mousemove', handleDarkmodeDrag);
 });
 
 
