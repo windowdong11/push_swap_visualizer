@@ -8,6 +8,7 @@ let execute_timeout_id = null;
 let command_list = [];
 let next_command_idx = 0;
 let execute_order = 0;
+let command_record_status = false;
 const stack_a = document.getElementById('stack_a');
 const stack_b = document.getElementById('stack_b');
 const number_output = document.getElementById('number-output');
@@ -369,37 +370,82 @@ function ss() {
 	swap(stack_a);
 	swap(stack_b);
 }
+
 document.getElementById('btn-pa').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'pa\n';
+		command_list.push('pa');
+	}
 	pa();
 });
 document.getElementById('btn-pb').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'pb\n';
+		command_list.push('pb');
+	}
 	pb();
 });
 document.getElementById('btn-ra').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'ra\n';
+		command_list.push('ra');
+	}
 	ra();
 });
 document.getElementById('btn-rb').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'rb\n';
+		command_list.push('rb');
+	}
 	rb();
 });
 document.getElementById('btn-rr').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'rr\n';
+		command_list.push('rr');
+	}
 	rr();
 });
 document.getElementById('btn-rra').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'rra\n';
+		command_list.push('rra');
+	}
 	rra();
 });
 document.getElementById('btn-rrb').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'rrb\n';
+		command_list.push('rrb');
+	}
 	rrb();
 });
 document.getElementById('btn-rrr').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'rrr\n';
+		command_list.push('rrr');
+	}
 	rrr();
 });
 document.getElementById('btn-sa').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'sa\n';
+		command_list.push('sa');
+	}
 	sa();
 });
 document.getElementById('btn-sb').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'sb\n';
+		command_list.push('sb');
+	}
 	sb();
 });
 document.getElementById('btn-ss').addEventListener('click', () => {
+	if (command_record_status) {
+		commands_elem.value += 'ss\n';
+		command_list.push('ss');
+	}
 	ss();
 });
 
@@ -863,6 +909,10 @@ function endTutorial() {
 }
 
 document.getElementById('insert-number-btn').addEventListener('click', setManualNumber);
+document.getElementById('record-command-btn').addEventListener('click', () => {
+	command_record_status = !command_record_status;
+	console.log('command record status:', command_record_status);
+});
 
 /**
  * 패치노트를 열거나 닫습니다.
