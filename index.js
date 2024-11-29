@@ -194,7 +194,8 @@ function pickColor(number) {
 		parseRGB("20BDFF"),
 		parseRGB("5433FF"),
 	];
-	const percent = number / (max_val - min_val + 1) * ((colors.length - 2) + 0.9);
+	const percent = (number - min_val) / (max_val - min_val) * 1.999;
+	console.log(percent);
 	return pickHex(colors[Math.floor(percent)], colors[Math.floor(percent) + 1], percent % 1);
 }
 
@@ -514,6 +515,7 @@ document.getElementById('btn-exec-reset').addEventListener('click', () => {
 		.filter(number => Number.isSafeInteger(number));
 	number_output.value = list.join(' ');
 	list.forEach(i => addNode(i));
+	recalculateAll();
 });
 
 function countCommands() {
