@@ -500,6 +500,16 @@ function setRandom() {
 	recalculateAll();
 	copyExecCommand();
 }
+
+function setManualNumber() {
+	cleanAll();
+	const list = number_output.value.split(' ')
+		.map(strnum => parseInt(strnum))
+		.filter(number => Number.isSafeInteger(number));
+	number_output.value = list.join(' ');
+	list.forEach(i => addNode(i));
+	recalculateAll();
+}
 document.getElementById('btn-random').addEventListener('click', setRandom);
 document.getElementById('input-size').addEventListener('keydown', e => {
 	if (e.code === "Enter")
@@ -852,6 +862,7 @@ function endTutorial() {
 	});
 }
 
+document.getElementById('insert-number-btn').addEventListener('click', setManualNumber);
 
 /**
  * 패치노트를 열거나 닫습니다.

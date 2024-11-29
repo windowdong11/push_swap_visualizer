@@ -87,11 +87,12 @@
 			</div>
 			<div class="divider horizontal"></div>
 			<div>
-				<div>생성된 숫자</div>
+				<div>생성된 숫자 or 숫자 입력</div>
 				<div id="modal-copied" class="information fade-in">copied! run command in your terminal!</div>
 				<div class="tutorial-group" id="tutorial-generated-numbers">
 					<input id="number-output">
 					<button id="copy-number-output" style="height: 34px;margin-right: 10px;">copy</button>
+					<button id="insert-number-btn" style="height: 34px;margin-right: 10px;">입력한 값으로 설정</button>
 				</div>
 			</div>
 			<div class="divider horizontal"></div>
@@ -117,8 +118,8 @@
 						<output id="out-sort-result">wait...</output>
 					</div>
 				</div>
-				<textarea id="commands-output" class="commands-input"
-					placeholder="push_swap을 실행한 명령어를&#13;&#10;여기에 붙여넣으세요 :)" spellcheck="false"></textarea>
+				<textarea id="commands-output" class="commands-input" placeholder="push_swap을 실행한 명령어를&#13;&#10;여기에 붙여넣으세요 :)"
+					spellcheck="false"></textarea>
 			</div>
 			<h2>How to use?</h2>
 			<p>1. input number에 생성할 숫자 갯수 입력</p>
@@ -133,21 +134,28 @@
 			<div>
 				<h2>패치노트</h2>
 				<div class="patch-note open">
+					<p class="toggle-header"><span class="icon">▼</span>2024-11-29</p>
+					<div class="content">
+						<pre>원하는 숫자열을 입력해서 실행해볼 수 있는 기능을 추가했습니다.</pre>
+						<pre>사실 이전에도 있던 기능이지만 색이 제대로 나오지 않는 버그를 수정했습니다.</pre>
+					</div>
+				</div>
+				<div class="patch-note ">
 					<p class="toggle-header"><span class="icon">▼</span>2024-11-07</p>
 					<div class="content">
-							<pre>혹시 <b>다크모드 버튼의 위치</b>가 불편하지는 않으셨나요?</pre>
-							<pre>이제 버튼을 클릭하고 드래그하면 위치를 마음대로 옮길 수 있어요!</pre>
-							<pre>+추가) 패치노트도 접었다 폈다 할 수 있어요!</pre>
+						<pre>혹시 <b>다크모드 버튼의 위치</b>가 불편하지는 않으셨나요?</pre>
+						<pre>이제 버튼을 클릭하고 드래그하면 위치를 마음대로 옮길 수 있어요!</pre>
+						<pre>+추가) 패치노트도 접었다 폈다 할 수 있어요!</pre>
 					</div>
-			</div>
+				</div>
 				<div class="patch-note ">
 					<p class="toggle-header"><span class="icon">▼</span>2024-10-31</p>
 					<div class="content">
-							<pre>mac 이외에 linux, windows에서도 복사 명령어가 잘 동작하도록 수정했습니다.</pre>
-							<pre>mac: `pbcopy` windows: `clip` linux: `xclip -selection clipboard`</pre>
-							<pre><b></b>linux 유저분들은 xclip을 설치해주세요.</b> `sudo apt-get install xclip`</pre>
+						<pre>mac 이외에 linux, windows에서도 복사 명령어가 잘 동작하도록 수정했습니다.</pre>
+						<pre>mac: `pbcopy` windows: `clip` linux: `xclip -selection clipboard`</pre>
+						<pre><b></b>linux 유저분들은 xclip을 설치해주세요.</b> `sudo apt-get install xclip`</pre>
 					</div>
-			</div>
+				</div>
 			</div>
 		</div>
 		<!-- stack A, B -->

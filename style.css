@@ -90,7 +90,7 @@ input {
 }
 
 .fade-in {
-	opacity: 0;
+	display: none;
 }
 
 .fade-in-active {
