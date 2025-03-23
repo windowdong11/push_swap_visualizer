@@ -230,7 +230,7 @@ function setStackWidth() {
 
 function setWidth(elem) {
 	const number = parseInt(elem.innerText);
-	elem.style.width = `calc(1.2em + ${Math.abs(number) * pixel_diff}px)`;
+	elem.style.width = number === 0 ? `1.2em` : `calc(1.2em + ${Math.abs(number) * pixel_diff}px)`;
 	if (min_val < 0) {
 		if (number < 0)
 			elem.style.marginLeft = `calc(${Math.abs(number - min_val) * pixel_diff}px)`;
@@ -319,7 +319,7 @@ function swap(stack) {
 }
 
 function addNode(number) {
-	if (Number.isInteger(number))
+	if (!Number.isInteger(number))
 		return;
 	pushBottom(stack_a, newElem(number));
 }
