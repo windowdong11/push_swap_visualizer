@@ -319,7 +319,7 @@ function swap(stack) {
 }
 
 function addNode(number) {
-	if (!number)
+	if (Number.isInteger(number))
 		return;
 	pushBottom(stack_a, newElem(number));
 }
